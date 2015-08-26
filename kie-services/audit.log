@@ -5,7 +5,7 @@
     <org.drools.core.audit.event.ObjectLogEvent>
       <type>1</type>
       <factId>1</factId>
-      <objectToString>com.redhat.Greeting@533b266e</objectToString>
+      <objectToString>com.redhat.Greeting@38f57b3d</objectToString>
     </org.drools.core.audit.event.ObjectLogEvent>
     <org.drools.core.audit.event.RuleFlowLogEvent>
       <type>8</type>
