@@ -18,7 +18,7 @@ public class StatelessDecisionServiceImpl implements StatelessDecisionService {
 	public void runRules(Collection<Object> facts, String processId) {
 		LOGGER.info("hi!");
 		
-		KieSession session = kieContainer.newKieSession();
+		KieSession session = kieContainer.newKieSession("stateful");
 		KieRuntimeLogger auditLogger = KieServices.Factory.get().getLoggers().newFileLogger(session, "audit");
 		
 		for ( Object fact : facts){
