@@ -6,8 +6,6 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>kie services</name>
-
 
 
 	<url>http://maven.apache.org</url>
@@ -20,7 +18,7 @@
 		<!-- project dependencies -->
 		<dependency>
 			<groupId>com.redhat</groupId>
-			<artifactId>domain</artifactId>
+			<artifactId>language</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

@@ -4,9 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.redhat</groupId>
-	<artifactId>aggregator</artifactId>
+	<artifactId>application</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>aggregator</name>
 	<packaging>pom</packaging>
 
 	<modules>
