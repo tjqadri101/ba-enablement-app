@@ -41,49 +41,61 @@ public class QueryUtils {
 	 * @return
 	 */
 
-	public static List< Command< ? >> buildQueryCommands( Class< ? > clazz ) {
-		List< Command< ? >> queryCommands = new ArrayList< Command< ? >>();
-		if ( clazz != null ) {
-			Collection< Field > fields = getAllFields( clazz );
-			for ( Field field : fields ) {
-				KieQuery queryInfo = field.getAnnotation( KieQuery.class );
-				if ( queryInfo != null ) {
+	public static List<Command<?>> buildQueryCommands(Class<?> clazz) {
+		List<Command<?>> queryCommands = new ArrayList<Command<?>>();
+		if (clazz != null) {
+			Collection<Field> fields = getAllFields(clazz);
+			for (Field field : fields) {
+				KieQuery queryInfo = field.getAnnotation(KieQuery.class);
+				if (queryInfo != null) {
 					String queryName = queryInfo.queryName();
-					queryCommands.add( KieServices.Factory.get().getCommands().newQuery( queryName, queryName ) );
+					queryCommands.add(KieServices.Factory.get().getCommands().newQuery(queryName, queryName));
 				}
 			}
 		}
 		return queryCommands;
 	}
 
-	public static Collection< ? > extractCollectionFromExecutionResults( ExecutionResults exectionResults, String queryName,
-			String binding ) {
-		Collection< Object > list = new ArrayList< Object >();
-		if ( exectionResults != null ) {
-			QueryResults queryResult = ( QueryResults ) exectionResults.getValue( queryName );
-			if ( queryResult != null ) {
-				for ( QueryResultsRow row : queryResult ) {
-					list.add( row.get( binding ) );
+	public static Collection<?> extractCollectionFromExecutionResults(ExecutionResults exectionResults, String queryName, String binding) {
+		Collection<Object> list = new ArrayList<Object>();
+		if (exectionResults != null) {
+			QueryResults queryResult = (QueryResults) exectionResults.getValue(queryName);
+			if (queryResult != null) {
+				for (QueryResultsRow row : queryResult) {
+					list.add(row.get(binding));
 				}
 			}
 		}
 		return list;
 	}
 
-	public static Collection< Field > getAllFields( Class< ? > clazz ) {
-		Collection< Field > fields = new ArrayList< Field >();
-		addFields( clazz, fields );
-		Class< ? > superClazz = clazz;
-		while ( superClazz.getSuperclass() != null ) {
+	public static Object extractFromExecutionResults(ExecutionResults exectionResults, String queryName, String binding) {
+		Object result = null;
+		if (exectionResults != null) {
+			QueryResults queryResult = (QueryResults) exectionResults.getValue(queryName);
+			if (queryResult != null) {
+				for (QueryResultsRow row : queryResult) {
+					result = row.get(binding);
+				}
+			}
+		}
+		return result;
+	}
+
+	public static Collection<Field> getAllFields(Class<?> clazz) {
+		Collection<Field> fields = new ArrayList<Field>();
+		addFields(clazz, fields);
+		Class<?> superClazz = clazz;
+		while (superClazz.getSuperclass() != null) {
 			superClazz = superClazz.getSuperclass();
-			addFields( superClazz, fields );
+			addFields(superClazz, fields);
 		}
 		return fields;
 	}
 
-	private static void addFields( Class< ? > clazz, Collection< Field > fields ) {
-		for ( Field field : clazz.getDeclaredFields() ) {
-			fields.add( field );
+	private static void addFields(Class<?> clazz, Collection<Field> fields) {
+		for (Field field : clazz.getDeclaredFields()) {
+			fields.add(field);
 		}
 	}
 }

@@ -55,7 +55,15 @@ public class ReflectiveExecutionResultsTransformer {
 						logger.error( String.format( "Could not set results on propery: ", field.getName() ) );
 					}
 				} else {
-					logger.error( "QueryInfo annotation can not be used on " + field.getName() + ". It only be used on fields which are of Type Collection" );
+					try {
+						Object result = QueryUtils.extractFromExecutionResults( results, queryName, binding );
+						if ( result == null ) {
+							logger.warn( String.format( "Query results were empty for query: %s", queryName ) );
+						}
+						PropertyUtils.setProperty( response, field.getName(), result );
+					} catch ( IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e ) {
+						logger.error( String.format( "Could not set results on propery: ", field.getName() ) );
+					}
 				}
 			}
 		}
