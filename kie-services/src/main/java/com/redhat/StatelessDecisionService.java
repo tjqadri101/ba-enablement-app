@@ -1,10 +1,13 @@
 package com.redhat;
 
 import java.util.Collection;
-import java.util.Map;
 
 public interface StatelessDecisionService {
 
-	
-	void runRules(Collection<Object> facts, String processId);
+	<Response> Response runRules(Collection<Object> facts, String processId, Class<Response> responseClazz);
+
+	boolean createOrUpgradeRulesWithVersion(String group, String artifact, String version);
+
+	String getCurrentRulesVersion();
+
 }

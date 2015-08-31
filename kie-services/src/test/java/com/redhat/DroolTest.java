@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class DroolTest {
 
-	private StatelessDecisionService service = new StatelessDecisionServiceImpl();
+	private StatelessDecisionService service = BrmsHelper.newStatelessDecisionServiceBuilder().build();
 
 	@Test
 	public void helloWorldTest() {
@@ -19,7 +19,7 @@ public class DroolTest {
 		Assert.assertNull(greeting.getGreeting());
 
 		// when
-		service.runRules(facts, "simple.Ruleflow");
+		service.runRules(facts, "simple.Ruleflow", null);
 
 		// then
 		Assert.assertEquals("Hello, World!", greeting.getGreeting());
