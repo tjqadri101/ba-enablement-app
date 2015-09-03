@@ -16,10 +16,11 @@ public class DroolsTest {
 		Collection<Object> facts = new ArrayList<Object>();
 		Business business = new Business();
 		business.setName("test");
+		String string = new String();
 		facts.add(business);
 
 		// when
-		RuleResponse response = service.runRules(facts, "VerifySupplier", RuleResponse.class);
+		RuleResponse response = service.runRules(facts, "defaultPackage.Process", RuleResponse.class);
 
 		// then
 		Assert.assertNotNull(response);
