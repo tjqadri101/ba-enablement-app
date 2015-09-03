@@ -28,8 +28,9 @@ public class BpmTest extends AbstractJUnit4SpringContextTests {
 	protected static final String ARTIFACT_ID = "knowledge";
 	protected static final String VERSION = "1.1-SNAPSHOT";
 	protected static final DeploymentUnit DEPLOYMENT_UNIT = new KModuleDeploymentUnit(GROUP_ID, ARTIFACT_ID, VERSION);
-	protected static final String PROCESS_ID = "defaultPackage.Process"; // TODO this might be different for you
-
+	//protected static final String PROCESS_ID = "defaultPackage.Process"; // TODO this might be different for you
+	protected static final String PROCESS_ID = "defaultPackage.New_Process";
+	
 	@Autowired
 	protected ProcessService processService;
 	@Autowired
@@ -45,6 +46,13 @@ public class BpmTest extends AbstractJUnit4SpringContextTests {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("StringVar", new String("test"));
+		
+		Business testBusiness = new Business();
+		testBusiness.setStateCode("KS");
+		//testBusiness.setStateCode("NY");
+		testBusiness.setZipCode("27708");
+		testBusiness.setFederalTaxId("11111");
+		map.put("Business", testBusiness);
 
 		processService.startProcess(DEPLOYMENT_UNIT.getIdentifier(), PROCESS_ID, map);
 	}
@@ -57,6 +65,6 @@ public class BpmTest extends AbstractJUnit4SpringContextTests {
 		
 		FluentKieModuleDeploymentHelper helper1 = KieModuleDeploymentHelper.newFluentInstance();
 		TestUtils.createDefaultKieBase(helper1);
-		helper1.setGroupId(GROUP_ID).setArtifactId(ARTIFACT_ID).setVersion(VERSION).addResourceFilePath("com/redhat/simple/Process.bpmn2").createKieJarAndDeployToMaven();
+		helper1.setGroupId(GROUP_ID).setArtifactId(ARTIFACT_ID).setVersion(VERSION).addResourceFilePath("com/redhat/simple/NewProcess.bpmn2", "com/redhat/simple/testRule.drl").createKieJarAndDeployToMaven();
 	}
 }
